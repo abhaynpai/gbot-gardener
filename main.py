@@ -1,5 +1,7 @@
 from flask import Flask, Response, json, jsonify
 from config.config import get_config
+from time import sleep
+import sys
 
 import utils.garden as garden
 
@@ -21,5 +23,13 @@ def water_plant():
     return jsonify(data)
 
 if __name__ == '__main__':
+    counter = 0
+    while counter < 10:
+        print(f'moisture value reading is : {garden.get_moisture_value()}')
+        sleep(1)
+        counter += 1
+        if counter == 10:
+            garden.cleanup()
+            sys.exit(0)
     conf = get_config()
     app.run(host=conf['host'], port=conf['port'], debug=True)

@@ -2,12 +2,12 @@ import RPi.GPIO as GPIO
 import time
 
 MOTOR_PIN = 18
-MOISTURE_SENSOR_PIN = 21
+MOISTURE_SENSOR_PIN = 3
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BOARD)
+GPIO.setwarnings(True)
 
-GPIO.setup(MOISTURE_SENSOR_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(MOISTURE_SENSOR_PIN, GPIO.IN)
 GPIO.setup(MOTOR_PIN, GPIO.OUT, initial=GPIO.LOW)
 
 
@@ -39,3 +39,6 @@ def water_plant():
             break
 
     stop_water_motor()
+
+def cleanup():
+    GPIO.cleanup()
